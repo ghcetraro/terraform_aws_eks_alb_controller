@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+  name: test-alb
+spec:
+  selector:
+    matchLabels:
+      app: test-alb
+  template:
+    metadata:
+      labels:
+        app: test-alb
+    spec:
+      containers:
+      - image: httpd:latest
+        name: test-alb
+        ports:
+        - containerPort: 80
+          protocol: TCP
+
