@@ -100,3 +100,25 @@ Resources that are going to be deployed
     	"kubernetes.io/cluster/${local.app_name_dashed}" = "owned"
     	"kubernetes.io/role/internal-elb"                = 1
   		}
+
+---
+
+## Documentación del proyecto
+
+- [Changelog](CHANGELOG.md)
+- [Contribuir](CONTRIBUTING.md)
+
+---
+
+## Seguridad
+
+No commitees secretos, tfvars con credenciales reales ni archivos de state.
+
+Ver [SECURITY.md](SECURITY.md).
+
+---
+
+## Licencia
+
+[MIT](LICENSE) — Copyright (c) Gabriel Cetraro
+
