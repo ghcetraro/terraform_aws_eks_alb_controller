@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.5.7"
+
+      - name: Terraform fmt (informational)
+        continue-on-error: true
+        run: |
+          terraform fmt -check -recursive vpc || echo "fmt drift in vpc (informational)"
+          terraform fmt -check -recursive alb-controller || echo "fmt drift in alb-controller (informational)"
+
+      - name: Terraform init + validate
+        run: |
+          (cd vpc && terraform init -backend=false && terraform validate)
+          (cd alb-controller && terraform init -backend=false && terraform validate)
